@@ -1,0 +1,304 @@
+:root {
+    --bg-color: #fbfff2; /* Very faint lime-tinted white */
+    --text-color: #1a1a1a;
+    --accent-color: #f5f5f5;
+    /* Lime green theme colors */
+    --theme-lime: #84cc16;
+    --theme-lime-light: rgba(132, 204, 22, 0.15);
+    --grid-color: rgba(132, 204, 22, 0.06); 
+    
+    --font-main: 'Inter', sans-serif;
+    --font-display: 'VT323', monospace; 
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--theme-lime);
+    border-radius: 6px;
+    border: 3px solid var(--bg-color); /* Creates a padded look */
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #65a30d;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    
+    /* Gamer grid in lime green */
+    background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: center center;
+    /* Panning and subtle pulsing animation for the grid */
+    animation: panGrid 15s linear infinite, pulseGrid 8s ease-in-out infinite alternate;
+
+    color: var(--text-color);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 2rem;
+    position: relative;
+}
+
+@keyframes panGrid {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+
+@keyframes pulseGrid {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Animated Background Elements */
+.bg-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.shape {
+    position: absolute;
+    font-size: 3rem; 
+    color: var(--theme-lime); 
+    font-family: var(--font-main);
+    font-weight: bold;
+    opacity: 0.6; 
+    /* Float and pulse animation */
+    animation: floatShape linear infinite;
+}
+
+.shape-1 { top: 15%; left: 10%; animation-duration: 20s; }
+.shape-2 { top: 75%; left: 15%; animation-duration: 25s; animation-direction: reverse; }
+.shape-3 { top: 35%; left: 85%; animation-duration: 18s; }
+.shape-4 { top: 85%; left: 80%; animation-duration: 24s; animation-direction: reverse; }
+.shape-5 { top: 10%; left: 65%; animation-duration: 30s; }
+
+@keyframes floatShape {
+    0% { 
+        transform: translateY(0) rotate(0deg) scale(1); 
+        text-shadow: 0 0 5px var(--theme-lime-light);
+    }
+    50% { 
+        transform: translateY(-50px) rotate(180deg) scale(1.3); 
+        text-shadow: 0 0 20px var(--theme-lime);
+    }
+    100% { 
+        transform: translateY(0) rotate(360deg) scale(1); 
+        text-shadow: 0 0 5px var(--theme-lime-light);
+    }
+}
+
+.header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 4rem;
+    animation: fadeIn 1s ease-out;
+    z-index: 1; 
+}
+
+.avatar-container {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 1.5rem;
+}
+
+.avatar-cutout {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    border: 4px solid var(--theme-lime); 
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 15px var(--theme-lime-light);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.avatar-cutout:hover {
+    transform: translateY(-8px) scale(1.08);
+    box-shadow: 0 0 30px var(--theme-lime);
+    border-color: #a3e635; /* Brighter lime on hover */
+}
+
+.avatar-cutout img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Premium Minimalist Gamer Title */
+.title {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    font-weight: 700; 
+    letter-spacing: 4px;
+    color: var(--text-color);
+    margin: 0;
+    text-shadow: 4px 4px 0px var(--theme-lime-light), -1px -1px 0px var(--theme-lime);
+    position: relative;
+    cursor: default;
+    transition: all 0.3s ease;
+}
+
+/* Subtle Glitch Effect on Hover for Title */
+.title:hover {
+    color: var(--theme-lime);
+    text-shadow: 4px 4px 0px var(--text-color), -1px -1px 0px #fff;
+}
+
+.content {
+    width: 100%;
+    max-width: 1200px;
+    animation: fadeIn 1.2s ease-out;
+    z-index: 1; 
+}
+
+/* Masonry layout */
+.masonry-grid {
+    column-count: 3;
+    column-gap: 2rem;
+}
+
+@media (max-width: 900px) {
+    .masonry-grid {
+        column-count: 2;
+    }
+}
+@media (max-width: 600px) {
+    .masonry-grid {
+        column-count: 1;
+    }
+}
+
+.media-item {
+    break-inside: avoid;
+    margin-bottom: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05), 0 0 0 1px var(--theme-lime-light);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+}
+
+.media-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 0 25px var(--theme-lime-light);
+    z-index: 2;
+}
+
+.media-item img, 
+.media-item video {
+    width: 100%;
+    height: auto;
+    display: block;
+    cursor: pointer; 
+    transition: transform 0.5s ease; /* Scale transition */
+}
+
+/* Scale the image/video slightly when hovering the card for a premium feel */
+.media-item:hover img,
+.media-item:hover video {
+    transform: scale(1.03);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Lightbox Styles */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding: 20px;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.85); /* Frosty white glassmorphism */
+    backdrop-filter: blur(15px);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.lightbox.active {
+    display: flex;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.lightbox-content-wrapper {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox-content-wrapper img,
+.lightbox-content-wrapper video {
+    display: none;
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 16px;
+    border: 4px solid var(--theme-lime);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15), 0 0 40px var(--theme-lime-light);
+}
+
+.lightbox-content-wrapper img.active,
+.lightbox-content-wrapper video.active {
+    display: block;
+    animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: var(--text-color);
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10000;
+}
+
+.close-lightbox:hover {
+    color: var(--theme-lime);
+    text-shadow: 0 0 20px var(--theme-lime-light);
+    transform: scale(1.15) rotate(90deg);
+}
+
+@keyframes zoomIn {
+    from {transform: scale(0.9); opacity: 0;} 
+    to {transform: scale(1); opacity: 1;}
+}
